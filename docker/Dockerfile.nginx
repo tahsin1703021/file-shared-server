@@ -1,0 +1,10 @@
+FROM openresty/openresty:alpine
+
+# Copy the Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose the port
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
