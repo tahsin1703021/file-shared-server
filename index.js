@@ -25,7 +25,22 @@ app.get('/files/:publicKey', async (req, res) => {
     return await storageManager.downloadFile(req, res);
 });
 
+app.get('/', async (req, res) => {
+  return res.status(200).json(
+    {
+      message: 'Welcome to the File Storage API',
+      endpoints: [
+        { method: 'POST', path: '/files', description: 'Upload a file' },
+        { method: 'GET', path: '/files/:publicKey', description: 'Download a file' },
+      ],
+    }
+  );
+});
+
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
+app.listen(PORT, '0.0.0.0', () => {
+  console.log('Server running on 0.0.0.0:3000');
 });

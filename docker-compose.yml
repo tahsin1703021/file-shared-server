@@ -12,7 +12,7 @@ services:
       - .:/app
       - /app/node_modules
     networks:
-    - app-network
+      - app-network
     environment:
       - NODE_ENV=development
 
@@ -21,20 +21,22 @@ services:
     container_name: redis
     networks:
       - app-network
+
   nginx:
     build:
       context: .
-      dockerfile: docker/Dockerfile.nginx 
+      dockerfile: docker/Dockerfile.nginx
     container_name: nginx
     ports:
       - "8081:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Nginx configuration file
     depends_on:
       - redis
+      - file-shared-server
     networks:
       - app-network
 
 networks:
   app-network:
     driver: bridge
+    name: app-network
+
